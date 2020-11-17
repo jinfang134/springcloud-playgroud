@@ -1,0 +1,5 @@
+
+
+dependencies {
+    implementation("de.codecentric:spring-boot-admin-starter-client:2.1.0")
+}

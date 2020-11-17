@@ -1,0 +1,75 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.6.RELEASE'
+        wrapperVersion = '1.0.21.RELEASE'
+    }
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group = 'com.springcloud.playgroud'
+    version = '1.0.1'
+    apply plugin: 'idea'
+}
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'jacoco'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+   
+    ext {
+        libVersion = [
+                shiro: '1.2.4',
+                lombok:'1.18.6',
+                druid: '1.1.10'
+        ]
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+        }
+        test{
+            java{
+                srcDir 'src/test/java'
+            }
+        }
+    }
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-devtools')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        annotationProcessor "org.projectlombok:lombok:${libVersion.lombok}"
+        compileOnly "org.projectlombok:lombok:${libVersion.lombok}"
+        testAnnotationProcessor "org.projectlombok:lombok:${libVersion.lombok}"
+        testCompileOnly "org.projectlombok:lombok:${libVersion.lombok}"
+
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile('junit:junit:4.12')
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url "https://repo.maven.apache.org/maven2" }
+    }
+
+}
