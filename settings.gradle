@@ -7,4 +7,5 @@ include ':user'
 project(':product').projectDir = "$rootDir/services/product" as File
 project(':user').projectDir = "$rootDir/services/user" as File
 include 'admin'
+include 'eureka'
 
