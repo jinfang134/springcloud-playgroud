@@ -1,11 +1,14 @@
 rootProject.name = 'springcloud-playground'
 include ':product'
 include ':user'
+include ':entity'
 
 
 
 project(':product').projectDir = "$rootDir/services/product" as File
 project(':user').projectDir = "$rootDir/services/user" as File
+project(':entity').projectDir="$rootDir/services/entity" as File
+
 include 'admin'
 include 'eureka'
 include 'config-server'
