@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import playground.entity.Product;
 
 import java.util.List;
 
@@ -48,16 +49,5 @@ public class ProductApplication {
     public List<ServiceInstance> serviceInstancesByApplicationName(
             @PathVariable String applicationName) {
         return this.discoveryClient.getInstances(applicationName);
-    }
-}
-
-@Data
-class Product{
-    private Long id;
-    private String productName;
-
-    Product(long id,String productName){
-        this.id=id;
-        this.productName=productName;
     }
 }
