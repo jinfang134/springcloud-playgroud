@@ -36,7 +36,7 @@ subprojects {
                 lombok: '1.18.6',
                 druid : '1.1.10'
         ]
-        set('springCloudVersion', "Hoxton.SR1")
+        set('springCloudVersion', "Hoxton.SR9")
     }
 
     sourceSets {
