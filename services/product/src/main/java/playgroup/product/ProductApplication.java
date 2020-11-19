@@ -1,6 +1,8 @@
 package playgroup.product;
 
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -25,12 +27,15 @@ import java.util.List;
 @EnableEurekaClient
 public class ProductApplication {
 
+    private Logger log= LoggerFactory.getLogger(ProductApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class, args);
     }
 
     @GetMapping("/api/product")
     public Product getProduct() {
+        log.info("call get product");
         return new Product(12L, "test name");
     }
 
