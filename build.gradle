@@ -12,23 +12,21 @@ buildscript {
     }
 }
 
-
 allprojects {
     group = 'com.springcloud.playgroud'
     version = '1.0.1'
     apply plugin: 'idea'
-}
-
-
-subprojects {
     apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'jacoco'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url "https://repo.maven.apache.org/maven2" }
+    }
 
     ext {
         libVersion = [
@@ -38,48 +36,5 @@ subprojects {
         ]
         set('springCloudVersion', "Hoxton.SR9")
     }
-
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-            }
-        }
-        test {
-            java {
-                srcDir 'src/test/java'
-            }
-        }
-    }
-
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        }
-    }
-
-    dependencies {
-        implementation 'org.springframework.cloud:spring-cloud-starter-config'
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-        implementation('org.springframework.boot:spring-boot-starter')
-        implementation 'org.springframework.boot:spring-boot-starter-validation'
-        compile('org.springframework.boot:spring-boot-devtools')
-        implementation('org.springframework.boot:spring-boot-starter-actuator')
-
-        annotationProcessor "org.projectlombok:lombok:${libVersion.lombok}"
-        compileOnly "org.projectlombok:lombok:${libVersion.lombok}"
-        testAnnotationProcessor "org.projectlombok:lombok:${libVersion.lombok}"
-        testCompileOnly "org.projectlombok:lombok:${libVersion.lombok}"
-
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-        testCompile('junit:junit:4.12')
-    }
-
-    repositories {
-        mavenLocal()
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        mavenCentral()
-        maven { url "https://repo.maven.apache.org/maven2" }
-    }
-
 }
+

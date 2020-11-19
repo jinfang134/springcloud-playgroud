@@ -1,7 +1,7 @@
 
 
 dependencies {
-    implementation project(":entity")
+    implementation project(":core:entity")
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation("de.codecentric:spring-boot-admin-starter-client:2.1.0")
 }
