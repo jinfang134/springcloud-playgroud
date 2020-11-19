@@ -9,4 +9,5 @@ project(':user').projectDir = "$rootDir/services/user" as File
 include 'admin'
 include 'eureka'
 include 'config-server'
+include 'api-gateway'
 
