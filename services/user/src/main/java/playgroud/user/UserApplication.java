@@ -1,6 +1,7 @@
 package playgroud.user;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -16,9 +17,13 @@ public class UserApplication {
         SpringApplication.run(UserApplication.class, args);
     }
 
+    @Value("${server.port}")
+    private String port;
+
     @GetMapping("/api/user")
     public User getUser() {
-        return new User(12L, "test name");
+        String message = "provide from port: " + port;
+        return new User(12L, "test name", message);
     }
 
 }
@@ -28,9 +33,11 @@ public class UserApplication {
 class User {
     private Long id;
     private String name;
+    private String message;
 
-    public User(long l, String test_name) {
+    public User(long l, String test_name, String message) {
         this.id = l;
         this.name = test_name;
+        this.message = message;
     }
 }
