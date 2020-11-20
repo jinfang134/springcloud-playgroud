@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+
+  config-server:
+    image: playground/config-server:1.0.1
+    container_name: pg-config-server
+    networks:
+      - backend
+    restart: always
+    env_file: .env
+    environment:
+      - GIT_URI=https://github.com/jinfang134/springcloud-playground-config
+    ports:
+      - "8888:8888"
+
+networks:
+  backend:
+    external: false

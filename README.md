@@ -1,13 +1,13 @@
 # springcloud-playgroud
 
 
-## endpoint
-- [admin server](http://localhost:8000)
-- [eureka](http://localhost:8761)
-- [config server](http://localhost:8888)
-- Services
-    - [user service](http://localhost:8002)
-    - [product](http://localhost:8001)
+## Start
+### start common service
+```
+cd docker
+docker-compose -f docker-compose.config.yml -d up
+docker-compose -f docker-compose.yml -d up
+```
 
 ## refs
 - [Service Registration and Discovery](https://spring.io/guides/gs/service-registration-and-discovery/)
