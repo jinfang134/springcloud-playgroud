@@ -5,8 +5,8 @@
 ### start common service
 ```
 cd docker
-docker-compose -f docker-compose.config.yml -d up
-docker-compose -f docker-compose.yml -d up
+docker-compose -f docker-compose.config.yml up -d
+docker-compose -f docker-compose.yml up -d
 ```
 
 ## refs
