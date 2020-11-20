@@ -4,10 +4,14 @@
 ## Start
 ### start common service
 ```
+# compile and build docker image
+./gradlew clean build :common:docker
 cd docker
 docker-compose -f docker-compose.config.yml up -d
+# after config-server up, run below code
 docker-compose -f docker-compose.yml up -d
 ```
+
 
 ## refs
 - [Service Registration and Discovery](https://spring.io/guides/gs/service-registration-and-discovery/)
