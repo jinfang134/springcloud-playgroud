@@ -10,7 +10,13 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+
 }
+
+plugins {
+    id 'com.palantir.docker' version '0.25.0'
+}
+
 
 allprojects {
     group = 'com.springcloud.playgroud'

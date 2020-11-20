@@ -1,9 +1,9 @@
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'jacoco'
+    apply plugin: 'com.palantir.docker'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -25,6 +25,15 @@ subprojects {
         testCompile('junit:junit:4.12')
     }
 
+    docker {
+        name 'playground/' + project.name + ':' + project.version
+        files tasks.bootJar.outputs   // adds resulting *.tgz to the build context
+    }
+}
 
-
+task docker {
+    dependsOn(":common:admin:docker")
+    dependsOn(":common:config-server:docker")
+    dependsOn(":common:eureka:docker")
+    dependsOn(":common:api-gateway:docker")
 }
