@@ -32,8 +32,5 @@ subprojects {
 }
 
 task docker {
-    dependsOn(":common:admin:docker")
-    dependsOn(":common:config-server:docker")
-    dependsOn(":common:eureka:docker")
-    dependsOn(":common:api-gateway:docker")
+    dependsOn(subprojects.stream().map{it.path + ":docker"}.toArray())
 }
