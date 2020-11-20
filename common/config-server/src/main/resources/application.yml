@@ -8,6 +8,9 @@ spring:
     name: config-server
   cloud:
     config:
+      label: master
       server:
         git:
-          uri: ${HOME}/Desktop/config
+          uri: ${GIT_URI:https://github.com/jinfang134/springcloud-playground-config}
+#          username:
+#          password:

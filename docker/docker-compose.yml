@@ -1,0 +1,63 @@
+version: "3.3"
+
+services:
+
+  config-server:
+    image: playground/config-server:1.0.1
+    container_name: pg-config-server
+    networks:
+      - backend
+    restart: always
+    environment:
+      - GIT_URI=https://github.com/jinfang134/springcloud-playground-config
+      - EUREKA_URL=http://pg-eureka:8761/eureka
+    ports:
+      - "8888:8888"
+#    volumes:
+  #      - db-data:/var/lib/postgresql/data
+
+  api-gateway:
+    image: playground/api-gateway:1.0.1
+    container_name: pg-api-gateway
+    restart: always
+    environment:
+      - CONFIG_URI=http://pg-config-server:8888
+      - EUREKA_URL=http://pg-eureka:8761/eureka
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+    networks:
+      - backend
+
+
+  eureka:
+    image: playground/eureka:1.0.1
+    container_name: pg-eureka
+    restart: always
+    environment:
+      - CONFIG_URI=http://pg-config-server:8888
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+    networks:
+      - backend
+
+  admin:
+    image: playground/admin:1.0.1
+    container_name: pg-admin
+    restart: always
+    depends_on:
+      - config-server
+    environment:
+      - CONFIG_URI=http://pg-config-server:8888
+      - EUREKA_URL=http://pg-eureka:8761/eureka
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: false
