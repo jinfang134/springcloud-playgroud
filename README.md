@@ -20,6 +20,7 @@ docker-compose -f docker-compose.yml up -d
 - [openfeign](https://www.fangzhipeng.com/springcloud/2017/06/03/sc03-feign.html)
 - [微服务追踪：Spring Cloud Sleuth](https://www.jianshu.com/p/4303385b7512)
 - [gradle docker](https://github.com/palantir/gradle-docker)
+- [Spring Cloud Security：Oauth2使用入门](https://juejin.cn/post/6844903987137740813#heading-7)
 
 ## zipkin:
 ```sh
