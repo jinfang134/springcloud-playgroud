@@ -34,6 +34,7 @@ spring:
           predicates:
             - Path=/eureka/**
           filters:
+            - name: AuthCheckFilter     #会话验证
             - StripPrefix=1
 
         - id: admin-server

@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.UnsupportedEncodingException;
 
@@ -20,7 +23,6 @@ import java.io.UnsupportedEncodingException;
 @Component
 public class AuthCheckFilter extends AbstractGatewayFilterFactory {
     private static final String BEARER = "Bearer ";
-
 
 
     /**
@@ -39,12 +41,11 @@ public class AuthCheckFilter extends AbstractGatewayFilterFactory {
             String token = request.getHeaders().getFirst("token");
             log.info("当前请求的url:{}, method:{}", request.getURI().getPath(), request.getMethodValue());
             if (Strings.isEmpty(token)) {
-                response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                return response.setComplete();
+                return unauthorized(exchange);
             }
             ServerWebExchange build;
             try {
-                Jws<Claims> jws=getJwt(token);
+                Jws<Claims> jws = getJwt(token);
                 ServerHttpRequest host = exchange.getRequest().mutate()
                         .header("X-User-Name", (String) jws.getBody().get("username"))
                         // 中文字符需要编码
@@ -53,11 +54,22 @@ public class AuthCheckFilter extends AbstractGatewayFilterFactory {
                 return chain.filter(build);
             } catch (SignatureException | ExpiredJwtException | MalformedJwtException ex) {
                 log.error("user token error :{}", ex.getMessage());
-                response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                return response.setComplete();
             }
+            return unauthorized(exchange);
         };
 
+    }
+
+    /**
+     * 网关拒绝，返回401
+     *
+     * @param
+     */
+    private Mono<Void> unauthorized(ServerWebExchange serverWebExchange) {
+        serverWebExchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+        DataBuffer buffer = serverWebExchange.getResponse()
+                .bufferFactory().wrap(HttpStatus.UNAUTHORIZED.getReasonPhrase().getBytes());
+        return serverWebExchange.getResponse().writeWith(Flux.just(buffer));
     }
 
     public Jws<Claims> getJwt(String jwtToken) {
