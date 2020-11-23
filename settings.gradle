@@ -10,4 +10,5 @@ include ':common:eureka'
 include ':common:config-server'
 include ':common:api-gateway'
 include ':common:oauth2-server'
+include ':common:auth-server'
 

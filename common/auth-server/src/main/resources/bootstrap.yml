@@ -1,0 +1,8 @@
+server:
+  port: 9000
+
+spring:
+  security:
+    jwt:
+      signingKey: 3fdrew24wwerwr234234
+      expire: 3600000

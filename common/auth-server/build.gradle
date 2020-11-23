@@ -1,0 +1,8 @@
+
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

@@ -57,7 +57,6 @@ public class AuthCheckFilter extends AbstractGatewayFilterFactory {
             }
             return unauthorized(exchange);
         };
-
     }
 
     /**
