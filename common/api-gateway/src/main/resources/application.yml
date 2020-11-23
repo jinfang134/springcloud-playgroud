@@ -9,6 +9,9 @@ management:
       show-details: ALWAYS
 
 spring:
+  security:
+    jwt:
+      signingKey: 3fdrew24wwerwr234234
   cloud:
     gateway:
       discovery:
