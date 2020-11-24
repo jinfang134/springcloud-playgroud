@@ -26,17 +26,31 @@ services:
   admin:
     image: playground/admin:1.0.1
     container_name: pg-admin
-    restart: always
+#    restart: always
     env_file: .env
     ports:
       - "8000:8000"
     networks:
       - backend
 
+  redis:
+    image: redis:alpine
+    container_name: pg-redis
+    restart: always
+    volumes:
+      - ../data/redis:/data
+    environment:
+      - REDIS_PASSWORD=123456
+    networks:
+      - backend
+    ports:
+      - 6379:6379
+    env_file: .env
+
   zipkin:
     image: openzipkin/zipkin-slim
     container_name: pg-zipkin
-    restart: always
+#    restart: always
     env_file: .env
     ports:
       - "9411:9411"

@@ -1,6 +1,3 @@
-server:
-  port: 9000
-
 spring:
   redis:
     host: ${REDIST_HOST:localhsot}
@@ -22,8 +19,3 @@ spring:
         min-idle: 0
         # 连接超时时间（毫秒）
         timeout: 0
-  security:
-    jwt:
-      signingKey: 3fdrew24wwerwr234234
-      expire: 3600000
-
