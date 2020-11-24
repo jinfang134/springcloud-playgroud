@@ -4,7 +4,6 @@ import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -17,8 +16,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.UnsupportedEncodingException;
-
 @Slf4j
 @Component
 public class AuthCheckFilter extends AbstractGatewayFilterFactory {
@@ -30,6 +27,8 @@ public class AuthCheckFilter extends AbstractGatewayFilterFactory {
      */
     @Value("${spring.security.jwt.signingKey}")
     private String signingKey;
+
+    public static final String X_CLIENT_TOKEN_USER = "x-client-token-user";
 
 
     @Override
@@ -45,9 +44,10 @@ public class AuthCheckFilter extends AbstractGatewayFilterFactory {
             }
             ServerWebExchange build;
             try {
-                Jws<Claims> jws = getJwt(token);
+                Claims claims = getJwt(token);
+                log.info("jwt claims: {}", claims.toString());
                 ServerHttpRequest host = exchange.getRequest().mutate()
-                        .header("X-User-Name", (String) jws.getBody().get("username"))
+                        .header(X_CLIENT_TOKEN_USER, claims.getSubject())
                         // 中文字符需要编码
                         .build();
                 build = exchange.mutate().request(host).build();
@@ -71,13 +71,14 @@ public class AuthCheckFilter extends AbstractGatewayFilterFactory {
         return serverWebExchange.getResponse().writeWith(Flux.just(buffer));
     }
 
-    public Jws<Claims> getJwt(String jwtToken) {
+    public Claims getJwt(String jwtToken) {
         if (jwtToken.startsWith(BEARER)) {
             jwtToken = StringUtils.substring(jwtToken, BEARER.length());
         }
         return Jwts.parser()  //得到DefaultJwtParser
                 .setSigningKey(signingKey.getBytes()) //设置签名的秘钥
-                .parseClaimsJws(jwtToken);
+                .parseClaimsJws(jwtToken)
+                .getBody();
     }
 
     public boolean invalidJwtAccessToken(String authentication) {

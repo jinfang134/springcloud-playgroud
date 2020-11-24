@@ -1,4 +1,4 @@
-package playground.gateway.gateway.auth;
+package playground.auth.entity;
 
 public class Resource {
     private Integer id;

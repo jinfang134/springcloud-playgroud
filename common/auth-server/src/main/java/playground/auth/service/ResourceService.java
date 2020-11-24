@@ -1,7 +1,8 @@
-package playground.gateway.gateway.auth;
+package playground.auth.service;
 
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
+import playground.auth.entity.Resource;
 
 import java.util.Set;
 

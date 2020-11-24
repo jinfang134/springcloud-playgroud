@@ -4,7 +4,7 @@ dependencies {
     implementation project(":core:entity")
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
-    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
-    implementation('org.springframework.cloud:spring-cloud-sleuth-zipkin')
+//    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+//    implementation('org.springframework.cloud:spring-cloud-sleuth-zipkin')
     implementation("de.codecentric:spring-boot-admin-starter-client:2.1.0")
 }

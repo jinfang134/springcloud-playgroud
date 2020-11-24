@@ -1,4 +1,4 @@
-package playground.auth;
+package playground.auth.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -26,6 +26,10 @@ public class JwtUtils {
     @Value("${spring.security.jwt.expire}")
     private long expire = 3600 * 1000;
 
+    public JwtUtils(String signingKey,long expire){
+        this.signingKey=signingKey;
+        this.expire=expire;
+    }
 
     /**
      * 生成jwt token
@@ -33,11 +37,11 @@ public class JwtUtils {
     public String generateToken(String userId) {
         Date nowDate = new Date();
         //过期时间
-        Date expireDate = new Date(nowDate.getTime() + expire * 1000);
+        Date expireDate = new Date(nowDate.getTime() + expire);
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(userId )
+                .setSubject(userId)
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, signingKey.getBytes())
