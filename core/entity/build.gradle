@@ -13,6 +13,7 @@ dependencies {
     compileOnly 'org.slf4j:slf4j-api:1.7.30'
     compileOnly 'org.springframework.data:spring-data-redis:2.3.2.RELEASE'
     compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
+    compile 'io.github.openfeign:feign-core:10.10.1'
 
     compile group: 'junit', name: 'junit', version: '4.12'
     annotationProcessor "org.projectlombok:lombok:${libVersion.lombok}"
