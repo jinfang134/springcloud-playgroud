@@ -11,7 +11,9 @@ public class ResourceService {
     public Set<Resource> loadResources(String role) {
         return Sets.newHashSet(
                 new Resource("addUser", "user:add"),
-                new Resource("listUser", "user:list")
+                new Resource("listUser", "user:list"),
+                new Resource("addProduct", "product:add"),
+                new Resource("listProduct", "product:list")
         );
     }
 }
