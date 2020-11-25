@@ -12,7 +12,6 @@ docker-compose -f docker-compose.config.yml up -d
 docker-compose -f docker-compose.yml up -d
 ```
 
-
 ## refs
 - [Service Registration and Discovery](https://spring.io/guides/gs/service-registration-and-discovery/)
 - [Centralized Configuration](https://spring.io/guides/gs/centralized-configuration/)
@@ -21,6 +20,7 @@ docker-compose -f docker-compose.yml up -d
 - [微服务追踪：Spring Cloud Sleuth](https://www.jianshu.com/p/4303385b7512)
 - [gradle docker](https://github.com/palantir/gradle-docker)
 - [Spring Cloud Security：Oauth2使用入门](https://juejin.cn/post/6844903987137740813#heading-7)
+- [](https://juejin.cn/post/6844903832929976328)
 
 ## zipkin:
 ```sh

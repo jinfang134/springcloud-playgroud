@@ -1,4 +1,4 @@
-package playground.auth.service;
+package playground.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +24,7 @@ public class AuthCache {
     /**
      * unit: ms
      */
-    @Value("${spring.security.jwt.expire}")
+//    @Value("${spring.security.jwt.expire}")
     private long expire = 3600 * 1000;
 
     /**

@@ -26,10 +26,6 @@ public class JwtUtils {
     @Value("${spring.security.jwt.expire}")
     private long expire = 3600 * 1000;
 
-    public JwtUtils(String signingKey,long expire){
-        this.signingKey=signingKey;
-        this.expire=expire;
-    }
 
     /**
      * 生成jwt token
@@ -59,4 +55,11 @@ public class JwtUtils {
         }
     }
 
+    public void setSigningKey(String signingKey) {
+        this.signingKey = signingKey;
+    }
+
+    public void setExpire(long expire) {
+        this.expire = expire;
+    }
 }

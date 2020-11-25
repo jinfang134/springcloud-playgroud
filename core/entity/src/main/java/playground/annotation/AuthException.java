@@ -4,7 +4,7 @@ public class AuthException extends RuntimeException {
     private String permission;
 
     public AuthException(String permission) {
-        super();
+        super("No permission: " + permission);
         this.permission = permission;
     }
 

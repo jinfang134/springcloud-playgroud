@@ -29,10 +29,4 @@ public class UserController {
         return new User(12L, "test name", message, p);
     }
 
-    @ExceptionHandler(AuthException.class)
-    public String exceptionHandler(AuthException re) {
-//        model.addAttribute("exception", re);
-        log.error("error: {}", re.getPermission());
-        return "login error";
-    }
 }

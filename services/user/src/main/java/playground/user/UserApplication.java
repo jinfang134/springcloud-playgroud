@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
-@ComponentScan(basePackages = {"playground.user","playground.annotation"})
+@ComponentScan(basePackages = {"playground"})
 public class UserApplication {
 
     public static void main(String[] args) {

@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import playground.redis.AuthCache;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -30,7 +32,7 @@ public class AuthAspect {
     private final Logger logger = LoggerFactory.getLogger(AuthAspect.class);
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private AuthCache authCache;
     /**
      * 服务间调用token用户信息,格式为json
      * {
@@ -84,9 +86,6 @@ public class AuthAspect {
         return request.getHeader(X_CLIENT_TOKEN_USER);
     }
 
-    private boolean hasResource(String username, String res) {
-        return redisTemplate.opsForSet().isMember("resource_" + username, res);
-    }
 
     /**
      * 环绕
@@ -105,9 +104,8 @@ public class AuthAspect {
         String resource = getAnnotation(proceedingJoinPoint);
         String username = getUsername(request);
         logger.info("username: {}", username);
-
-        if (!StringUtils.isEmpty(resource) && !hasResource(username, resource)) {
-            throw new AuthException("No permission: " + resource);
+        if (!StringUtils.isEmpty(resource) && !authCache.hasResource(username, resource)) {
+            throw new AuthException(resource);
         }
         Object result = proceedingJoinPoint.proceed();
         return result;

@@ -1,4 +1,4 @@
-package playground.auth.config;
+package playground.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
