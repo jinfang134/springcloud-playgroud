@@ -11,4 +11,6 @@ include ':common:config-server'
 include ':common:api-gateway'
 include ':common:oauth2-server'
 include ':common:auth-server'
+include 'core:api'
+findProject(':core:api')?.name = 'api'
 

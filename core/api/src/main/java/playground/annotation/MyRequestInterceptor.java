@@ -14,6 +14,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * open feign interceptor to add request header.
+ */
 @Component
 public class MyRequestInterceptor implements RequestInterceptor {
     public static final String X_CLIENT_TOKEN_USER = "x-client-token-user";

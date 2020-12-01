@@ -104,7 +104,7 @@ public class AuthAspect {
         String resource = getAnnotation(proceedingJoinPoint);
         String username = getUsername(request);
         logger.info("username: {}", username);
-        if (!StringUtils.isEmpty(resource) && !authCache.hasResource(username, resource)) {
+        if (!StringUtils.isEmpty(resource) && !authCache.hasResource(resource)) {
             throw new AuthException(resource);
         }
         Object result = proceedingJoinPoint.proceed();

@@ -17,6 +17,9 @@ subprojects {
     }
 
     dependencies {
+        implementation project(":core:entity")
+        implementation project(":core:api")
+
         implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
