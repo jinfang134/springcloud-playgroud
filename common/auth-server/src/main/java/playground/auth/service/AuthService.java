@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import playground.auth.entity.Resource;
 import playground.auth.entity.Role;
-import playground.auth.entity.User;
+import playground.entity.User;
 
 import java.util.Set;
 import java.util.UUID;
@@ -31,7 +31,7 @@ public class AuthService {
         String userId= UUID.randomUUID().toString();
         authCache.setResources(userId,resourceList.stream().map(it->it.getCode()).collect(Collectors.toSet()));
         authCache.setRoles(userId,roles.stream().map(it->it.getCode()).collect(Collectors.toSet()));
-        authCache.setUser(userId,new User(username,password,username));
+        authCache.setUser(userId,new User(username,username));
         return jwtUtils.generateToken(userId);
     }
 }

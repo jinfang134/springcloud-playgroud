@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import playground.auth.entity.User;
+import playground.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;

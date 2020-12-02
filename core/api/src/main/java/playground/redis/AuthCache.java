@@ -1,5 +1,7 @@
 package playground.redis;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class AuthCache {
+    private Logger log = LoggerFactory.getLogger(AuthCache.class);
 
     public static final String X_CLIENT_TOKEN_USER = "x-client-token-user";
 
@@ -30,7 +33,7 @@ public class AuthCache {
     /**
      * unit: ms
      */
-//    @Value("${spring.security.jwt.expire}")
+    @Value("${spring.security.jwt.expire}")
     private long expire = 3600 * 1000;
 
     public User getCurrentUser() {
@@ -45,7 +48,6 @@ public class AuthCache {
         HttpServletRequest request = requestAttributes.getRequest();
         return request.getHeader(X_CLIENT_TOKEN_USER);
     }
-
 
     /**
      * 是否有操作权限

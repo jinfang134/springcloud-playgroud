@@ -2,15 +2,13 @@ rootProject.name = 'springcloud-playground'
 include ':services:product'
 include ':services:user'
 
-include ':core:entity'
-
-
 include ':common:admin'
 include ':common:eureka'
 include ':common:config-server'
 include ':common:api-gateway'
 include ':common:oauth2-server'
 include ':common:auth-server'
+
+include ':core:entity'
 include 'core:api'
-findProject(':core:api')?.name = 'api'
 
