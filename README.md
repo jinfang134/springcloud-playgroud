@@ -2,6 +2,10 @@
 
 
 ## Start
+### config repo
+https://github.com/jinfang134/springcloud-playground-config
+
+
 ### start common service
 ```
 # compile and build docker image
@@ -10,6 +14,13 @@ cd docker
 docker-compose -f docker-compose.config.yml up -d
 # after config-server up, run below code
 docker-compose -f docker-compose.yml up -d
+```
+
+## prod deploy
+```sh
+./gradlew dockerBuild
+cd docker
+docker-compose up --scale user=3
 ```
 
 ## refs
