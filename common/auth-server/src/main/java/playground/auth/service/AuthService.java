@@ -17,7 +17,7 @@ public class AuthService {
     JwtUtils jwtUtils;
 
     @Autowired
-    private AuthCache authCache;
+    private AuthCacheWriter authCache;
 
     @Autowired
     ResourceService resourceService;

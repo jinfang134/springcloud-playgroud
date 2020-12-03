@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AuthCacheTest {
 
     @Autowired
-    AuthCache authCache;
+    AuthCacheWriter authCache;
 
     @Test
     public void testResouces(){

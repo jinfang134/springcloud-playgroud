@@ -1,6 +1,7 @@
 package playground.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -13,15 +14,16 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class AuthCache {
+public class AuthCacheWriter {
 
     public static final String X_CLIENT_TOKEN_USER = "x-client-token-user";
-
-    @Autowired
     private RedisTemplate redisTemplate;
-
-    @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    public AuthCacheWriter(RedisTemplate redisTemplate, StringRedisTemplate stringRedisTemplate) {
+        this.redisTemplate = redisTemplate;
+        this.stringRedisTemplate = stringRedisTemplate;
+    }
 
     private static final String ROLE_KEY_PREFIX = "role_";
     private static final String RESOURCE_KEY_PREFIX = "resource_";
@@ -29,10 +31,10 @@ public class AuthCache {
     /**
      * unit: ms
      */
-//    @Value("${spring.security.jwt.expire}")
+    @Value("${spring.security.jwt.expire}")
     private long expire = 3600 * 1000;
 
-    public String getCurrentUser(){
+    public String getCurrentUser() {
         //获取请求报文头部元数据
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         //获取请求对象
@@ -67,18 +69,20 @@ public class AuthCache {
 
     /**
      * 缓存当前用户信息
+     *
      * @param key
      * @param user
      */
-    public void setUser(String key, User user){
+    public void setUser(String key, User user) {
         user.setPassword("");
-        redisTemplate.opsForValue().set(key,user);
+        redisTemplate.opsForValue().set(key, user);
+        redisTemplate.expire(key, expire, TimeUnit.MILLISECONDS);
     }
-
 
 
     /**
      * 设置角色
+     *
      * @param username
      * @param roles
      */
@@ -90,6 +94,7 @@ public class AuthCache {
 
     /**
      * 获取权限的redis key
+     *
      * @param username
      * @return
      */

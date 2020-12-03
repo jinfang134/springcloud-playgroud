@@ -12,7 +12,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import playground.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -39,6 +38,15 @@ public class AuthCache {
     public User getCurrentUser() {
         String userId = getUserId();
         return (User) redisTemplate.opsForValue().get(userId);
+    }
+
+    public void setProps(String key, String value) {
+        redisTemplate.opsForHash().put(getUserId(), key, value);
+        redisTemplate.expire(getUserId(), expire, TimeUnit.MILLISECONDS);
+    }
+
+    public Object getProp(String key) {
+        return redisTemplate.opsForHash().get(getUserId(), key);
     }
 
     protected String getUserId() {
